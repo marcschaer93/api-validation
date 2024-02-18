@@ -1,0 +1,10 @@
+GET http://localhost:3000/books/
+###
+GET http://localhost:3000/books/:id
+###
+POST http://localhost:3000/books/
+###
+PUT http://localhost:3000/books/isbn
+###
+DELETE http://localhost:3000/books/isbn
+###
