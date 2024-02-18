@@ -41,6 +41,45 @@ describe("GET /books", function () {
   });
 });
 
+describe("POST /books", function () {
+  test("Adds a new Book", async function () {
+    const response = await request(app)
+      .post("/books")
+      .send({
+        book: {
+          isbn: "192837465",
+          amazon_url: "https://newBook.com",
+          author: "newbie",
+          language: "newReading",
+          pages: 1000,
+          publisher: "Its New",
+          title: "NEW BOOK",
+          year: 2022,
+        },
+      });
+    console.log("RESPONSE", response.body.error);
+    // expect(response.body.book).toBeDefined();
+    expect(response.body.book.author).toBe("newbie");
+  });
+});
+
+describe("POST /books", function () {
+  test("Creates a new book", async function () {
+    const response = await request(app).post(`/books`).send({
+      isbn: "32794782",
+      amazon_url: "https://taco.com",
+      author: "mctest",
+      language: "english",
+      pages: 1000,
+      publisher: "yeah right",
+      title: "amazing times",
+      year: 2000,
+    });
+    expect(response.statusCode).toBe(201);
+    expect(response.body.book).toHaveProperty("isbn");
+  });
+});
+
 describe("GET /books/:id", function () {
   test("Get book by valid id", async function () {
     const response = await request(app).get(`/books/${book_isbn}`);
