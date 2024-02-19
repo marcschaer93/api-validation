@@ -43,23 +43,32 @@ describe("GET /books", function () {
 
 describe("POST /books", function () {
   test("Adds a new Book", async function () {
-    const response = await request(app)
-      .post("/books")
-      .send({
-        book: {
-          isbn: "192837465",
-          amazon_url: "https://newBook.com",
-          author: "newbie",
-          language: "newReading",
-          pages: 1000,
-          publisher: "Its New",
-          title: "NEW BOOK",
-          year: 2022,
-        },
-      });
-    console.log("RESPONSE", response.body.error);
-    // expect(response.body.book).toBeDefined();
+    const response = await request(app).post("/books").send({
+      isbn: "192837465",
+      amazon_url: "https://newBook.com",
+      author: "newbie",
+      language: "newReading",
+      pages: 1000,
+      publisher: "Its New",
+      title: "NEW BOOK",
+      year: 2022,
+    });
+    expect(response.body.book).toBeDefined();
     expect(response.body.book.author).toBe("newbie");
+  });
+  test("Adds a new Book with Invalid data", async function () {
+    const response = await request(app).post("/books").send({
+      isbn: 192837465, // must be a string
+      amazon_url: "https://newBook.com",
+      author: "newbie",
+      language: "newReading",
+      pages: "1000", // must be a integer
+      publisher: "Its New",
+      //   title: "NEW BOOK", // No Title (required)
+      year: "2022", // must be a integer
+    });
+    console.log("RESPONSE", response.body);
+    expect(response.statusCode).toBe(400);
   });
 });
 
