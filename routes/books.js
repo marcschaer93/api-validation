@@ -5,6 +5,7 @@ const router = new express.Router();
 
 const jsonschema = require("jsonschema");
 const bookSchemaNew = require("../schemas/bookSchemaNew");
+const bookSchemaUpdate = require("../schemas/bookSchemaUpdate.json");
 const ExpressError = require("../expressError");
 
 /** GET / => {books: [book, ...]}  */

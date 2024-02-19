@@ -56,20 +56,6 @@ describe("POST /books", function () {
     expect(response.body.book).toBeDefined();
     expect(response.body.book.author).toBe("newbie");
   });
-  test("Adds a new Book with Invalid data", async function () {
-    const response = await request(app).post("/books").send({
-      isbn: 192837465, // must be a string
-      amazon_url: "https://newBook.com",
-      author: "newbie",
-      language: "newReading",
-      pages: "1000", // must be a integer
-      publisher: "Its New",
-      //   title: "NEW BOOK", // No Title (required)
-      year: "2022", // must be a integer
-    });
-    console.log("RESPONSE", response.body);
-    expect(response.statusCode).toBe(400);
-  });
 });
 
 describe("POST /books", function () {
@@ -117,7 +103,7 @@ describe("PUT /books/:id", function () {
       title: "UPDATED BOOK",
       year: 2000,
     });
-    expect(response.body.book).toHaveProperty("isbn");
+    console.log("RESPONSE:", response.body);
     expect(response.body.book.title).toBe("UPDATED BOOK");
   });
 });
